@@ -1,18 +1,22 @@
 #include "graph.h"
 #include "network.h"
+#include "link.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
-static double costs[40][40];
+static Link links[40][40];
+static int extraLinks = 0;
 
 void initializeGraph(){
+  extraLinks = 0;
   for(int i = 0 ; i < 40 ; i++){
     for(int j = 0 ; j < 40 ; j++){
       if(j == i)
-        costs[i][j]= 0;
+        links[i][j]= createSelfLink();
       else
-        costs[i][j]= -1;
+        links[i][j]= createEmptyLink();
     }
   }
 }
@@ -29,7 +33,6 @@ int searchForConnection(int id){
       continue;
 
     int currentId = getHolder()[i].id;
-
     float distance = distanceBetween(getHolder()[i], getHolder()[id-1]);
 
     if(distance < minDistance){
@@ -37,7 +40,6 @@ int searchForConnection(int id){
       bestId = currentId;
     }
   }
-
   return bestId;
 }
 
@@ -46,7 +48,7 @@ void refreshConnection(){
   for(int i = 0 ; i < getNetworkCount() ; i++){
     int bestId = searchForConnection(i + 1);
     if(bestId != -1)
-      updateGraph(i, bestId - 1, generateCost(i+1 , bestId));
+      updateGraph(i+1, bestId);
   }
 }
 
@@ -59,7 +61,7 @@ bool createNewConnection(){
     int bestId = searchForConnection(newId);
 
     if(bestId != -1 ){
-      if(updateGraph(getNetworkCount() - 1, bestId - 1, generateCost(newId , bestId)))
+      if(updateGraph(newId, bestId))
         return true;
     }
 
@@ -71,30 +73,55 @@ bool createNewConnection(){
   //Error failed to create network
 }
 
-double generateCost(int id1, int id2){
-  (void)id1;
-  (void)id2;
-  return 999;
-}
+bool updateGraph(int id1 ,int id2){
+  if(id1 < 1 || id2 < 1 || id1 > getNetworkCount() || id2 > getNetworkCount() || id1 == id2)
+      return false;
 
-bool updateGraph(int index1 , int index2 , double cost){
-  if(index1 != index2 && index1 < 40 && index2 < 40 && index1 >= 0 && index2 >= 0 && (cost > 0 || cost == -1)){
-    costs[index1][index2] = cost;
-    costs[index2][index1] = cost;
-    return true;
-  }
-  return false;
+  Link link = createLink(id1 ,id2);
+  links[id1-1][id2-1] = link;
+  links[id2-1][id1-1] = link;
+  return true;
 }
 
 void printCostsTable(){
   for(int i = 0; i < 40 ; i++){
     for (int j = 0 ; j < 40 ; j++){
-      printf("%7.0f", costs[i][j]);
+      printf("%7.0f", links[i][j].cost);
     }
     printf("\n");
   }
 }
 
+bool hasConnection(int id1 , int id2){
+  if(id1 > 0 && id2 > 0 && id1 <= getNetworkCount() && id2 <= getNetworkCount()){
+      return links[id1 - 1][id2 -1].cost > 0;
+  }
+  return false;
+}
+
+int createAllExtraConnections(){
+  if(getNetworkCount() < 2)
+    return 0;
+  int tries = 0;
+  while(extraLinks < getNetworkCount() / 4 && tries < 5000){
+    tries++;
+    addConnection();
+  }
+  return extraLinks;
+}
 
 
+bool addConnection(){
+  if(getNetworkCount() < 2)
+    return false;
 
+  int id1 = rand() % getNetworkCount() + 1;
+  int id2 = rand() % getNetworkCount() + 1;
+  if(id1 != id2 && !hasConnection(id1 , id2)){
+    if(updateGraph(id1 , id2)){
+      extraLinks++;
+      return true;
+    }
+  }
+  return false;
+}

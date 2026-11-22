@@ -84,3 +84,7 @@ bool removeNetwork(int id){
     refreshConnection();
     return true;
 }
+
+struct Network getNetwork(int id){
+    return getHolder()[id-1];
+}
