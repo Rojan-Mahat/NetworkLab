@@ -2,3 +2,9 @@ networklab
 *.o
 build/
 results.txt
+# Test executables
+dijkstraTest
+networklab_test
+
+# macOS debugger files
+*.dSYM/
