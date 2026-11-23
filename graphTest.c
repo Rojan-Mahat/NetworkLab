@@ -3,6 +3,8 @@
 #include "network.h"
 #include "graph.h"
 
+
+
 int main(void) {
     srand(42);  // Reproducible tests
     initializeGraph();

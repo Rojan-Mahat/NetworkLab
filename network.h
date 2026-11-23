@@ -15,5 +15,6 @@ bool generateRandomNetwork(struct Network holder[]);
 bool removeNetwork(int id);
 struct Network *getHolder(void);
 struct Network getNetwork(int id);
+bool valid(int id);
 
 

@@ -84,9 +84,9 @@ bool updateGraph(int id1 ,int id2){
 }
 
 void printCostsTable(){
-  for(int i = 0; i < 40 ; i++){
-    for (int j = 0 ; j < 40 ; j++){
-      printf("%7.0f", links[i][j].cost);
+  for(int i = 0; i < getNetworkCount() ; i++){
+    for (int j = 0 ; j < getNetworkCount() ; j++){
+        printf("%7.0f", links[i][j].cost);
     }
     printf("\n");
   }
@@ -125,3 +125,12 @@ bool addConnection(){
   }
   return false;
 }
+
+Link getLink(int id1, int id2){
+  int count = getNetworkCount();
+  if(id1 > 0 && id1 <= count && id2 > 0 && id2 <= count)
+    return links[id1-1][id2-1];
+  return createEmptyLink();
+}
+
+

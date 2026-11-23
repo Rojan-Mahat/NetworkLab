@@ -37,5 +37,7 @@ typedef struct Link{
 struct Link createLink(int id1 , int id2);
 struct Link createEmptyLink();
 struct Link createSelfLink();
+bool isEmptyLink(struct Link link);
+
 
 

@@ -7,6 +7,11 @@
 #include<stdbool.h>
 
 static int networkCount = 0;
+struct Network netHolder [40];
+
+struct Network* getHolder(){
+    return netHolder;
+}
 
 int getNetworkCount(){
     return networkCount;
@@ -87,4 +92,8 @@ bool removeNetwork(int id){
 
 struct Network getNetwork(int id){
     return getHolder()[id-1];
+}
+
+bool valid(int id){
+    return id > 0 && id <= networkCount;
 }

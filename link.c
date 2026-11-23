@@ -78,5 +78,12 @@ struct Link createSelfLink(){
   return link;
 }
 
+bool isEmptyLink(struct Link link){
+  return link.cost <= 0;
+}
+
+
+
+
 
 
