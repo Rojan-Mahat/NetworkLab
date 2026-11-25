@@ -1,0 +1,412 @@
+{
+  "scale": 4,
+  "filenameRoot": "assets",
+  "sourceSvgRoot": "archive root",
+  "units": "Display dimensions, padding and ninePatchInsets are logical units. Pixel dimensions and ninePatchInsetsPx are texture pixels.",
+  "assets": [
+    {
+      "id": "networklab-logo",
+      "componentName": "Networklab logo",
+      "filename": "ui/networklab-logo.png",
+      "sourceSvg": "svg/networklab-logo.svg",
+      "displayWidth": 190,
+      "displayHeight": 24,
+      "pixelWidth": 760,
+      "pixelHeight": 96,
+      "padding": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "resize": "uniform",
+      "ninePatchInsets": null,
+      "ninePatchInsetsPx": null
+    },
+    {
+      "id": "main-panel",
+      "componentName": "Main topology panel",
+      "filename": "ui/main-panel.png",
+      "sourceSvg": "svg/main-panel.svg",
+      "displayWidth": 960,
+      "displayHeight": 600,
+      "pixelWidth": 3840,
+      "pixelHeight": 2400,
+      "padding": {
+        "left": 16,
+        "right": 16,
+        "top": 16,
+        "bottom": 16
+      },
+      "resize": "nine-slice",
+      "ninePatchInsets": {
+        "left": 6,
+        "top": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "ninePatchInsetsPx": {
+        "left": 24,
+        "top": 24,
+        "right": 24,
+        "bottom": 24
+      }
+    },
+    {
+      "id": "sidebar-panel",
+      "componentName": "Sidebar panel",
+      "filename": "ui/sidebar-panel.png",
+      "sourceSvg": "svg/sidebar-panel.svg",
+      "displayWidth": 248,
+      "displayHeight": 600,
+      "pixelWidth": 992,
+      "pixelHeight": 2400,
+      "padding": {
+        "left": 12,
+        "right": 12,
+        "top": 12,
+        "bottom": 12
+      },
+      "resize": "nine-slice",
+      "ninePatchInsets": {
+        "left": 6,
+        "top": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "ninePatchInsetsPx": {
+        "left": 24,
+        "top": 24,
+        "right": 24,
+        "bottom": 24
+      }
+    },
+    {
+      "id": "status-panel",
+      "componentName": "Footer panel",
+      "filename": "ui/status-panel.png",
+      "sourceSvg": "svg/status-panel.svg",
+      "displayWidth": 1200,
+      "displayHeight": 32,
+      "pixelWidth": 4800,
+      "pixelHeight": 128,
+      "padding": {
+        "left": 12,
+        "right": 12,
+        "top": 6,
+        "bottom": 6
+      },
+      "resize": "nine-slice",
+      "ninePatchInsets": {
+        "left": 1,
+        "top": 1,
+        "right": 1,
+        "bottom": 1
+      },
+      "ninePatchInsetsPx": {
+        "left": 4,
+        "top": 4,
+        "right": 4,
+        "bottom": 4
+      }
+    },
+    {
+      "id": "button",
+      "componentName": "Normal button",
+      "filename": "ui/button.png",
+      "sourceSvg": "svg/button.svg",
+      "displayWidth": 128,
+      "displayHeight": 36,
+      "pixelWidth": 512,
+      "pixelHeight": 144,
+      "padding": {
+        "left": 12,
+        "right": 12,
+        "top": 8,
+        "bottom": 8
+      },
+      "resize": "nine-slice",
+      "ninePatchInsets": {
+        "left": 4,
+        "top": 4,
+        "right": 4,
+        "bottom": 4
+      },
+      "ninePatchInsetsPx": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      }
+    },
+    {
+      "id": "button-active",
+      "componentName": "Selected button",
+      "filename": "ui/button-active.png",
+      "sourceSvg": "svg/button-active.svg",
+      "displayWidth": 128,
+      "displayHeight": 36,
+      "pixelWidth": 512,
+      "pixelHeight": 144,
+      "padding": {
+        "left": 12,
+        "right": 12,
+        "top": 8,
+        "bottom": 8
+      },
+      "resize": "nine-slice",
+      "ninePatchInsets": {
+        "left": 9,
+        "top": 9,
+        "right": 9,
+        "bottom": 9
+      },
+      "ninePatchInsetsPx": {
+        "left": 36,
+        "top": 36,
+        "right": 36,
+        "bottom": 36
+      }
+    },
+    {
+      "id": "button-hover",
+      "componentName": "Button hover",
+      "filename": "ui/button-hover.png",
+      "sourceSvg": "svg/button-hover.svg",
+      "displayWidth": 128,
+      "displayHeight": 36,
+      "pixelWidth": 512,
+      "pixelHeight": 144,
+      "padding": {
+        "left": 12,
+        "right": 12,
+        "top": 8,
+        "bottom": 8
+      },
+      "resize": "nine-slice",
+      "ninePatchInsets": {
+        "left": 4,
+        "top": 4,
+        "right": 4,
+        "bottom": 4
+      },
+      "ninePatchInsetsPx": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      }
+    },
+    {
+      "id": "status-active",
+      "componentName": "Online router indicator",
+      "filename": "ui/status-active.png",
+      "sourceSvg": "svg/status-active.svg",
+      "displayWidth": 8,
+      "displayHeight": 8,
+      "pixelWidth": 32,
+      "pixelHeight": 32,
+      "padding": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "resize": "uniform",
+      "ninePatchInsets": null,
+      "ninePatchInsetsPx": null
+    },
+    {
+      "id": "status-offline",
+      "componentName": "Offline router indicator",
+      "filename": "ui/status-offline.png",
+      "sourceSvg": "svg/status-offline.svg",
+      "displayWidth": 8,
+      "displayHeight": 8,
+      "pixelWidth": 32,
+      "pixelHeight": 32,
+      "padding": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "resize": "uniform",
+      "ninePatchInsets": null,
+      "ninePatchInsetsPx": null
+    },
+    {
+      "id": "packet-indicator",
+      "componentName": "Packet indicator",
+      "filename": "ui/packet-indicator.png",
+      "sourceSvg": "svg/packet-indicator.svg",
+      "displayWidth": 16,
+      "displayHeight": 12,
+      "pixelWidth": 64,
+      "pixelHeight": 48,
+      "padding": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "resize": "uniform",
+      "ninePatchInsets": null,
+      "ninePatchInsetsPx": null
+    },
+    {
+      "id": "button-pressed",
+      "componentName": "Button pressed",
+      "filename": "ui/button-pressed.png",
+      "sourceSvg": "svg/button-pressed.svg",
+      "displayWidth": 128,
+      "displayHeight": 36,
+      "pixelWidth": 512,
+      "pixelHeight": 144,
+      "padding": {
+        "left": 12,
+        "right": 12,
+        "top": 8,
+        "bottom": 8
+      },
+      "resize": "nine-slice",
+      "ninePatchInsets": {
+        "left": 4,
+        "right": 4,
+        "top": 4,
+        "bottom": 4
+      },
+      "ninePatchInsetsPx": {
+        "left": 16,
+        "right": 16,
+        "top": 16,
+        "bottom": 16
+      }
+    },
+    {
+      "id": "button-disabled",
+      "componentName": "Button disabled",
+      "filename": "ui/button-disabled.png",
+      "sourceSvg": "svg/button-disabled.svg",
+      "displayWidth": 128,
+      "displayHeight": 36,
+      "pixelWidth": 512,
+      "pixelHeight": 144,
+      "padding": {
+        "left": 12,
+        "right": 12,
+        "top": 8,
+        "bottom": 8
+      },
+      "resize": "nine-slice",
+      "ninePatchInsets": {
+        "left": 4,
+        "right": 4,
+        "top": 4,
+        "bottom": 4
+      },
+      "ninePatchInsetsPx": {
+        "left": 16,
+        "right": 16,
+        "top": 16,
+        "bottom": 16
+      }
+    },
+    {
+      "id": "input-field",
+      "componentName": "Input field",
+      "filename": "ui/input-field.png",
+      "sourceSvg": "svg/input-field.svg",
+      "displayWidth": 200,
+      "displayHeight": 36,
+      "pixelWidth": 800,
+      "pixelHeight": 144,
+      "padding": {
+        "left": 12,
+        "right": 12,
+        "top": 8,
+        "bottom": 8
+      },
+      "resize": "nine-slice",
+      "ninePatchInsets": {
+        "left": 4,
+        "right": 4,
+        "top": 4,
+        "bottom": 4
+      },
+      "ninePatchInsetsPx": {
+        "left": 16,
+        "right": 16,
+        "top": 16,
+        "bottom": 16
+      }
+    },
+    {
+      "id": "input-focused",
+      "componentName": "Input focused",
+      "filename": "ui/input-focused.png",
+      "sourceSvg": "svg/input-focused.svg",
+      "displayWidth": 200,
+      "displayHeight": 36,
+      "pixelWidth": 800,
+      "pixelHeight": 144,
+      "padding": {
+        "left": 12,
+        "right": 12,
+        "top": 8,
+        "bottom": 8
+      },
+      "resize": "nine-slice",
+      "ninePatchInsets": {
+        "left": 4,
+        "right": 4,
+        "top": 4,
+        "bottom": 4
+      },
+      "ninePatchInsetsPx": {
+        "left": 16,
+        "right": 16,
+        "top": 16,
+        "bottom": 16
+      }
+    },
+    {
+      "id": "source-indicator",
+      "componentName": "Source indicator",
+      "filename": "ui/source-indicator.png",
+      "sourceSvg": "svg/source-indicator.svg",
+      "displayWidth": 16,
+      "displayHeight": 16,
+      "pixelWidth": 64,
+      "pixelHeight": 64,
+      "padding": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "resize": "uniform",
+      "ninePatchInsets": null,
+      "ninePatchInsetsPx": null
+    },
+    {
+      "id": "destination-indicator",
+      "componentName": "Destination indicator",
+      "filename": "ui/destination-indicator.png",
+      "sourceSvg": "svg/destination-indicator.svg",
+      "displayWidth": 16,
+      "displayHeight": 16,
+      "pixelWidth": 64,
+      "pixelHeight": 64,
+      "padding": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "resize": "uniform",
+      "ninePatchInsets": null,
+      "ninePatchInsetsPx": null
+    }
+  ]
+}
