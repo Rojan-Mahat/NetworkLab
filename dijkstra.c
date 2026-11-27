@@ -29,7 +29,7 @@ int findCheapestUnvisited(){
     double cheapest = INFINITY;
     int cheapestIndex = -1;
     for(int i = 0 ; i < getNetworkCount() ; i++){
-        if(!visited[i] && costs[i] < cheapest){
+        if(!visited[i] && getNetwork(i + 1).working && costs[i] < cheapest){
             cheapest = costs[i];
             cheapestIndex = i;
         }
@@ -47,7 +47,7 @@ void updateNotebook(int currentIndex){
     for(int i = 0 ; i < count ; i++){
         Link currentLink = getLink(currentIndex + 1, i+1);
 
-        if(isEmptyLink(currentLink) || visited[i])
+        if(isEmptyLink(currentLink) || visited[i] || !getNetwork(i + 1).working)
             continue;
 
         double cost = currentLink.cost;
@@ -66,7 +66,7 @@ PathResult findShortestPath(int sourceID, int destinationID){
     for(int i = 0 ; i < 40 ; i++)
         path.paths[i] = -1;
 
-    if(!valid (sourceID) || !valid(destinationID))
+    if(!valid(sourceID) || !valid(destinationID) || !getNetwork(sourceID).working || !getNetwork(destinationID).working)
         return path;
     
     initializeContainers(sourceID);

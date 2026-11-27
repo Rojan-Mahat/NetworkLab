@@ -67,26 +67,22 @@ bool generateRandomNetwork(struct Network holder[]){
 }
 
 
-bool removeNetwork(int id){
-    if(id < 1 || id > networkCount)
+bool removeNetwork(int id) {
+    if (!valid(id))
         return false;
-    //error id out of range 
 
-    for(int i = 0 ; i < networkCount ; i++){
-        if(getHolder()[i].id == id){
+    removeRouterLinks(id);
 
-            for(int j = i ; j < networkCount - 1 ; j++)
-                getHolder()[j] = getHolder()[j+1];
-
-            networkCount--;
-            break;
-        }
+    for (int i = id - 1; i < networkCount - 1; i++) {
+        netHolder[i] = netHolder[i + 1];
     }
 
-    for(int a = 0 ; a < networkCount ; a++)
-      getHolder()[a].id = a + 1;
+    networkCount--;
+
+    for (int i = 0; i < networkCount; i++) {
+        netHolder[i].id = i + 1;
+    }
     
-    refreshConnection();
     return true;
 }
 

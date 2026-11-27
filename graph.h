@@ -17,3 +17,5 @@ bool hasConnection(int id1, int id2);
 bool addConnection();
 int createAllExtraConnections();
 Link getLink(int id1, int id2);
+bool addNewConnection(int id1);
+void removeRouterLinks(int id);

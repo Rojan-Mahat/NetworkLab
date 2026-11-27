@@ -103,13 +103,32 @@ int createAllExtraConnections(){
   if(getNetworkCount() < 2)
     return 0;
   int tries = 0;
-  while(extraLinks < getNetworkCount() * 2 && tries < 5000){
+  while(extraLinks < getNetworkCount() * 3/4 && tries < 5000){
     tries++;
     addConnection();
   }
   return extraLinks;
 }
 
+bool addNewConnection(int id1) {
+    int count = getNetworkCount();
+    if (!valid(id1) || count < 2)
+        return false;
+
+    int start = rand() % count;
+    for (int i = 0; i < count; i++) {
+        int id2 = (start + i) % count + 1;
+
+        if (id1 != id2 && !hasConnection(id1, id2)) {
+            if (updateGraph(id1, id2)) {
+                extraLinks++;
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
 
 bool addConnection(){
   if(getNetworkCount() < 2)
@@ -131,6 +150,31 @@ Link getLink(int id1, int id2){
   if(id1 > 0 && id1 <= count && id2 > 0 && id2 <= count)
     return links[id1-1][id2-1];
   return createEmptyLink();
+}
+
+void removeRouterLinks(int id) {
+    int count = getNetworkCount();
+    if (id < 1 || id > count)
+        return;
+
+    int index = id - 1;
+
+    for (int i = index; i < count - 1; i++) {
+        for (int j = 0; j < count; j++) {
+            links[i][j] = links[i + 1][j];
+        }
+    }
+
+    for (int i = 0; i < count - 1; i++) {
+        for (int j = index; j < count - 1; j++) {
+            links[i][j] = links[i][j + 1];
+        }
+    }
+
+    for (int i = 0; i < count; i++) {
+        links[count - 1][i] = createEmptyLink();
+        links[i][count - 1] = createEmptyLink();
+    }
 }
 
 
