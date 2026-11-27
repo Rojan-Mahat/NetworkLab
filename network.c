@@ -30,7 +30,7 @@ bool generateRandomNetwork(struct Network holder[]){
         bool found = true;
         x = (rand() % (9950 - 50 + 1) + 50);
         y = (rand() % (9950 - 50 + 1) + 50);
-        r = (rand() % (400 - 50 + 1) + 50);
+        r = (rand() % (400 - 120 + 1) + 120);
         tries++;
 
         if(tries > 10000){

@@ -9,6 +9,7 @@
 #include <vector>
 #include <cstdlib>
 #include <cmath>
+#include <ctime>
 
 extern "C" {
     #include "network.h"
@@ -18,12 +19,14 @@ extern "C" {
 
 class Router : public sf::CircleShape {
 private:
+    int id;
     bool working;
     sf::Vector2f worldPosition;
     float worldRadius;
 public:
-    Router(float x, float y, float radius, bool on)
+    Router(int routerId, float x, float y, float radius, bool on)
         : sf::CircleShape(radius),
+         id(routerId),
          working(on),
          worldPosition(x,y),
          worldRadius(radius)
@@ -60,10 +63,15 @@ public:
         setOrigin({screenRadius,screenRadius});
         setPosition({screenX,screenY});
     }
+
+    int getId() const{
+        return id;
+    }
 };
 
 std::unordered_map<std::string, sf::FloatRect> UI_RECT;
 std::vector<Router> routers;
+int selectedRouterId = -1;
 
 void updateRouterLayout() {
     const auto& canvas = UI_RECT.at("canvas");
@@ -287,16 +295,46 @@ bool createRouters(){
     }
     for(int j = 0 ; j < getNetworkCount(); j++){
         Network network = getNetwork(j + 1);
-        routers.emplace_back(network.x,network.y,network.radius,network.working);
+        routers.emplace_back(network.id,network.x,network.y,network.radius,network.working);
     }
 
     return getNetworkCount()==routers.size();
      
 }
 
+void syncRouters() {
+    routers.clear();
+    for (int i = 1; i <= getNetworkCount(); i++) {
+        Network network = getNetwork(i);
+        routers.emplace_back(
+            network.id,
+            network.x,
+            network.y,
+            network.radius,
+            network.working
+        );
+    }
+    updateRouterLayout();
+}
+
 void drawRouters(sf::RenderWindow& window){
     for(const auto& router : routers)
         window.draw(router);
+}
+
+void drawRouterIDs(sf::RenderWindow& window, const sf::Font& font) {
+    for (const auto& router : routers) {
+        sf::Text label(font, "R" + std::to_string(router.getId()),12);
+
+        label.setFillColor(sf::Color(170,190,200));
+
+        sf::Vector2f position = router.getPosition();
+        float radius = router.getRadius();
+
+        label.setPosition({position.x + radius + 5.f,position.y - radius - 7.f});
+
+        window.draw(label);
+    }
 }
 
 const sf::Color LINK_COLOR(70, 110, 140, 150);
@@ -312,7 +350,7 @@ void drawConnection(sf::RenderWindow& window,const sf::Vector2f& start,const sf:
     line.setPosition(start);
     line.setSize({length, thickness});
     line.setFillColor(LINK_COLOR);
-    
+
     line.setOrigin({0.f, thickness / 2.f});
 
     line.setRotation(sf::degrees(angleDeg));
@@ -336,6 +374,62 @@ void getConnections(sf::RenderWindow& window) {
     }
 }
 
+void addNetwork() {
+    if (!createNewConnection()) {
+        std::cerr << "ERROR: Could not create router\n";
+        return;
+    }
+    addConnection();
+    syncRouters();
+    std::cout << "Router added successfully. Total: "<< getNetworkCount() << '\n';
+}
+
+
+void removeNetwork() {
+    if (selectedRouterId == -1) {
+        std::cerr << "ERROR: Select a router to remove\n";
+        return;
+    }
+
+    if (!::removeNetwork(selectedRouterId)) {
+        std::cerr << "ERROR: Could not remove router R" << selectedRouterId << '\n';
+        return;
+    }
+
+    createAllExtraConnections();
+    syncRouters();
+    std::cout << "Router removed successfully\n";
+    selectedRouterId = -1;
+}
+
+
+void handleMouseClick(sf::Vector2f mouse) {
+    if (UI_RECT.at("add_router").contains(mouse)) {
+        addNetwork();
+        return;
+    }
+
+    if (UI_RECT.at("remove_router").contains(mouse)) {
+        removeNetwork();
+        return;
+    }
+
+    selectedRouterId = -1;
+
+    for (const auto& router : routers) {
+        sf::Vector2f center = router.getPosition();
+        float dx = mouse.x - center.x;
+        float dy = mouse.y - center.y;
+        float radius = router.getRadius();
+
+        if (dx * dx + dy * dy <= radius * radius) {
+            selectedRouterId = router.getId();
+            std::cout << "Selected router R" << selectedRouterId << '\n';
+            return;
+        }
+    }
+}
+
 
 
 
@@ -345,7 +439,7 @@ int main() {
     sf::RenderWindow window(sf::VideoMode({1500,900}),"NetworkLab",sf::Style::Default,sf::State::Windowed,settings);
     window.setFramerateLimit(60);
 
-    srand(42);
+    srand(static_cast<unsigned int>(time(nullptr)));
     initializeGraph();
     if(!createRouters())
         return 1;
@@ -366,6 +460,13 @@ int main() {
             if (event->is<sf::Event::Closed>())
                 window.close();
             
+            if (const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>()) {
+                if (mousePressed->button == sf::Mouse::Button::Left) {
+                    sf::Vector2f mouse = window.mapPixelToCoords(mousePressed->position);
+                    handleMouseClick(mouse);
+                }
+            }
+            
             if (const auto* resized = event->getIf<sf::Event::Resized>()) {
                 float width = static_cast<float>(resized->size.x);
                 float height = static_cast<float>(resized->size.y);
@@ -385,6 +486,7 @@ int main() {
         getConnections(window);
        
         drawRouters(window);
+        drawRouterIDs(window, font);
         window.display();
     }
     UI_ASSETS.clear();

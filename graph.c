@@ -103,7 +103,7 @@ int createAllExtraConnections(){
   if(getNetworkCount() < 2)
     return 0;
   int tries = 0;
-  while(extraLinks < getNetworkCount() / 4 && tries < 5000){
+  while(extraLinks < getNetworkCount() * 2 && tries < 5000){
     tries++;
     addConnection();
   }
